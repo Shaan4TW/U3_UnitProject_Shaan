@@ -9,7 +9,7 @@
 <h2>Timeline</h2>
  
 <div>
-  <h3>Milestone #1:November 18th, 2016 </h3>
+  <h3>Milestone #1: November 18th, 2016 </h3>
   <strong>Goal:</strong> You should have solid planning done by the end of this milestone.
   <ul>
     <li>Finish ReadMe</li>
