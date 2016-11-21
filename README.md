@@ -24,11 +24,9 @@
   <h3>Milestone #2: November 30th, 2016 </h3>
   <strong>Goal:</strong> You should have a small prototype by the end of this milestone.
   <ul>
-    <li>Task</li>
-    <li>Task</li>
-    <li>Task</li>
-    <li>Task</li>
-    <li>Task</li>
+    <li>Finish game</li>
+    <li>Have home screen, and game over screen</li>
+    <li>Work with kinect, but a few bugs are fine</li>
   </ul>
 </p>
  
@@ -37,11 +35,10 @@
   Milestone #3: December 5th, 2015 (For C block) </h3>
   <strong>Goal:</strong> You should have iterated and improved on your prototype by the end of this milestone.
   <ul>
-    <li>Task</li>
-    <li>Task</li>
-    <li>Task</li>
-    <li>Task</li>
-    <li>Task</li>
+    <li>Finish Game</li>
+    <li>Debug</li>
+    <li>Finish ReadMe</li>
+    <li>Add more commits</li>
   </ul>
 </div>
  
