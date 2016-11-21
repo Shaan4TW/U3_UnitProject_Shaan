@@ -35,7 +35,7 @@
   Milestone #3: December 5th, 2015 (For C block) </h3>
   <strong>Goal:</strong> You should have iterated and improved on your prototype by the end of this milestone.
   <ul>
-    <li>Finish Game</li>
+    <li>Finish Game with Kinect Interaction</li>
     <li>Debug</li>
     <li>Finish ReadMe</li>
     <li>Add more commits</li>
