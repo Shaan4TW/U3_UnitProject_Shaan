@@ -4,7 +4,7 @@ class Dinosaur
   private float _y;
   private PImage _dinosaurImg;
   private boolean _isMoving;
-  
+
   Dinosaur(float x, float y, PImage dinosaurImg, boolean isMoving)
   {
     _x = x;
@@ -13,20 +13,15 @@ class Dinosaur
     _isMoving = isMoving;
     
   }
-  
-  private void Move()
+
+  public void Jump()
   {
-    _x = _x + 5;
+    _y = _y - 30;
+    
   }
+    
   
-  public void Update()
-  {
-    if (_isMoving)
-    {
-      Move();
-    }
-  }
-  
+
   public void Draw()
   {
     if (_isMoving)
@@ -37,6 +32,9 @@ class Dinosaur
   
   
   
-
   
 }
+
+
+
+  
