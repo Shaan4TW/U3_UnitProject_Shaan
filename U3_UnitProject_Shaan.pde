@@ -10,13 +10,15 @@ float buttonY;
 float buttonW;
 float buttonH;
 
+
+
 Dinosaur dino;
 Dinosaur dinosaw;
 
 Cloud cloudy;
-Cloud[] cloud;
+Cloud[] clouds;
 
-Cactus[] cactus;
+Cactus[] cactii;
 
 void setup()
 {
@@ -28,17 +30,24 @@ void setup()
   cactusImg = loadImage("cactus.png");
 
   dinosaurImg.resize(100, 100);
-  cactusImg.resize(100,100);
-  
-  cactus = new Cactus[20];
-  
-  for (int i = 0; i < 20; i++)
+  cactusImg.resize(100, 100);
+
+  cactii = new Cactus[10];
+
+  for (int i = 0; i < 10; i++)
   {
-    cactus[i] = new Cactus(random(width*1.2,width*1.4), height/1.95, cactusImg, true);
+    cactii[i] = new Cactus(random(width*1.2, width*2.8), height/1.95, cactusImg, true);
+  }
+  
+  clouds = new Cloud[5];
+  
+  for (int i = 0; i < 5; i++)
+  {
+    clouds[i] = new Cloud(random(width*0.05, width*0.95), height*0.1, cloudImg, true);
   }
 
 
-  dino = new Dinosaur(width/2.3, height/1.95, dinosaurImg, true);
+  dino = new Dinosaur(width/2.3, height/5, dinosaurImg, true);
   dinosaw = new Dinosaur(width/15, height/2.9, dinosaurImg, true);
 
   cloudy = new Cloud(width/1.5, height/3.2, cloudImg, true);
@@ -88,11 +97,28 @@ void draw()
     dino.Draw();
     line(0, height/1.6, width, height/1.6);
   }
+
+  if (screen == 1)
+  {
+    for (int i = 0; i < 10; i++)
+    {
+      cactii[i].Draw();
+      cactii[i].Move();
+    }
+    
+    for (int i = 0; i < 5; i++)
+    {
+      clouds[i].Draw();
+      cloudImg.resize(150,150);
+    }
+  }
+  
+  
 }
 
 void keyPressed()
 {
-  if (key == ' ' && screen == 1)
+  if (/*key == ' ' && */screen == 1)
   {
     dino.Jump();
   }
