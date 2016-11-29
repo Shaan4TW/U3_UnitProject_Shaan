@@ -2,14 +2,14 @@ PImage dinosaurImg;
 PImage cloudImg;
 PImage cactusImg;
 int score;
-int xDirection = 1;
-float xSpeed = 2;
 int screen;
 float buttonX;
 float buttonY;
 float buttonW;
 float buttonH;
-
+float timeDelta;
+int gravity = 10;
+float groundY = height/1.95;
 
 
 Dinosaur dino;
@@ -19,6 +19,8 @@ Cloud cloudy;
 Cloud[] clouds;
 
 Cactus[] cactii;
+
+
 
 void setup()
 {
@@ -34,13 +36,15 @@ void setup()
 
   cactii = new Cactus[10];
 
+  timeDelta = 1.0/frameRate;
+
   for (int i = 0; i < 10; i++)
   {
     cactii[i] = new Cactus(random(width*1.2, width*2.8), height/1.95, cactusImg, true);
   }
-  
+
   clouds = new Cloud[5];
-  
+
   for (int i = 0; i < 5; i++)
   {
     clouds[i] = new Cloud(random(width*0.05, width*0.95), height*0.1, cloudImg, true);
@@ -105,20 +109,18 @@ void draw()
       cactii[i].Draw();
       cactii[i].Move();
     }
-    
+
     for (int i = 0; i < 5; i++)
     {
       clouds[i].Draw();
-      cloudImg.resize(150,150);
+      cloudImg.resize(150, 150);
     }
   }
-  
-  
 }
 
 void keyPressed()
 {
-  if (/*key == ' ' && */screen == 1)
+  if (screen == 1)
   {
     dino.Jump();
   }
