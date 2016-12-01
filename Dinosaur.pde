@@ -30,6 +30,8 @@ class Dinosaur
       _y = groundY;
       _canJump = true;
     }
+    
+    
   }
  
   
@@ -44,5 +46,6 @@ class Dinosaur
   public void Draw()
   {
       image(_dinosaurImg, _x, _y);
+      dinosaurImg.resize(100,100);
   }
 }

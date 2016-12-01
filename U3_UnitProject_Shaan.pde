@@ -1,4 +1,5 @@
 PImage dinosaurImg;
+PImage dinosaurImg2;
 PImage cloudImg;
 PImage cactusImg;
 int score;
@@ -12,9 +13,7 @@ int gravity = 20;
 float groundY;
 int yForce;
 
-
 Dinosaur dino;
-Dinosaur dinosaw;
 
 Cloud cloudy;
 Cloud[] clouds;
@@ -30,12 +29,12 @@ void setup()
   groundY = height/1.95;
 
   dinosaurImg = loadImage("dinosaur.png");
+  dinosaurImg2 = loadImage("dinosaur.png");
+  dinosaurImg.resize(100,100);
   cloudImg = loadImage("cloud.png");
   cactusImg = loadImage("cactus.png");
-
-  dinosaurImg.resize(width/13, width/13);
+  dinosaurImg2.resize(width/13, width/13);
   cactusImg.resize(height/13, height/11);
-
   cactii = new Cactus[7];
 
   timeDelta = 1.0/frameRate;
@@ -52,10 +51,8 @@ void setup()
     clouds[i] = new Cloud(random(width*0.05, width*0.95), height*0.1, cloudImg, true);
   }
 
-
   dino = new Dinosaur(width/2.3, height/1.95, dinosaurImg, true);
-  dinosaw = new Dinosaur(width/15, height/2.9, dinosaurImg, true);
-
+  
   cloudy = new Cloud(width/1.5, height/3.2, cloudImg, true);
 
   buttonX = width/2.69;
@@ -87,7 +84,8 @@ void draw()
     dinosaurImg.resize(300, 300);
     cloudImg.resize(400, 400);
 
-    dinosaw.Draw();
+    image(dinosaurImg, width/15, height/2.9);
+    
     cloudy.Draw();
 
     if (mousePressed && screen == 0 && mouseX>buttonX && mouseX<buttonW+buttonX && mouseY>buttonY && mouseY<buttonH+buttonY)
@@ -99,19 +97,32 @@ void draw()
   if (screen == 1)
   {
     background(255);
-    dinosaurImg.resize(100, 100);
+    dinosaurImg.resize(100,100);
     dino.Draw();
     dino.Update();
     line(0, height/1.6, width, height/1.6);
-    
-  }
 
-  if (screen == 1)
-  {
+    score++;
+
+    fill(0, 0, 255);
+    textSize(20);
+    text("Score:", width/1.3, height/20);
+
+    fill(0, 0, 255);
+    textSize(20);
+    text(score, width/1.2, height/20);
+
     for (int i = 0; i < 7; i++)
     {
       cactii[i].Draw();
       cactii[i].Move();
+
+      if (isColliding(dino._x, dino._y, dino._dinosaurImg.width, 
+        dino._dinosaurImg.height, cactii[i]._x, cactii[i]._y, 
+        cactii[i]._cactusImg.width, cactii[i]._cactusImg.height) )
+      {
+        screen = 2;
+      }
     }
 
     for (int i = 0; i < 5; i++)
@@ -119,21 +130,26 @@ void draw()
       clouds[i].Draw();
       cloudImg.resize(150, 150);
     }
-    
-    
+
     if (screen == 2)
     {
       background(255);
 
       fill(0);
-      textSize(40);
-      text("YOU LOSE!", width/2, height/2);
-
       rect(buttonX, buttonY, buttonW, buttonH);
 
-      if (mousePressed && screen == 2 && mouseX>buttonX && mouseX<buttonW+buttonX && mouseY>buttonY && mouseY<buttonH+buttonY)
+      fill(0, 255, 0);
+      textSize(30);
+      text("Back to Home Page", width/2.55, height/1.95);
+
+      fill(0, 255, 0);
+      textSize(17);
+      text("P.S. You suck", width/2.5, height/1.75);
+
+      if (mousePressed && screen == 2 && mouseX>buttonX && mouseX<buttonW+buttonX 
+        && mouseY>buttonY && mouseY<buttonH+buttonY)
       {
-        screen = 1;
+        screen = 0;
       }
     }
   }
@@ -141,16 +157,22 @@ void draw()
 
 
 boolean isColliding(float dimgX, float dimgY, float dimgW, float dimgH, 
-    float otherX, float otherY, float otherW, float otherH)
-    {
-      float rightSideX = dimgX + dimgW;
-      float leftSideX = dimgX;
-      float topSideY = dimgY;
-      float bottomSideY = dimgY + dimgH;
-      
-      if ( (rightSideX > otherX && rightSideX < otherX + otherW) || (leftSideX < otherX + otherW && leftSideX > otherX) )
-      {
-        screen = 3;
-      }
-    }
- 
+  float otherX, float otherY, float otherW, float otherH)
+{
+  float rightSideX = dimgX + dimgW;
+  float leftSideX = dimgX;
+  float topSideY = dimgY;
+  float bottomSideY = dimgY + dimgH;
+
+  if ( (rightSideX > otherX && rightSideX < otherX + otherW) || 
+    (leftSideX < otherX + otherW && leftSideX > otherX) || 
+    (topSideY <= otherY + otherH && topSideY >= otherY) || 
+    (bottomSideY >= otherY && bottomSideY <= otherY + otherH)  )
+  {
+    return true;
+  } 
+  else
+  {
+    return false;
+  }
+}
