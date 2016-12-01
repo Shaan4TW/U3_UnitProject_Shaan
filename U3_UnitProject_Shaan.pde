@@ -8,8 +8,9 @@ float buttonY;
 float buttonW;
 float buttonH;
 float timeDelta;
-int gravity = 10;
-float groundY = height/1.95;
+int gravity = 20;
+float groundY;
+int yForce;
 
 
 Dinosaur dino;
@@ -26,21 +27,22 @@ void setup()
 {
   fullScreen();
   background(255);
+  groundY = height/1.95;
 
   dinosaurImg = loadImage("dinosaur.png");
   cloudImg = loadImage("cloud.png");
   cactusImg = loadImage("cactus.png");
 
-  dinosaurImg.resize(100, 100);
-  cactusImg.resize(100, 100);
+  dinosaurImg.resize(width/13, width/13);
+  cactusImg.resize(height/13, height/11);
 
-  cactii = new Cactus[10];
+  cactii = new Cactus[7];
 
   timeDelta = 1.0/frameRate;
 
-  for (int i = 0; i < 10; i++)
+  for (int i = 0; i < 7; i++)
   {
-    cactii[i] = new Cactus(random(width*1.2, width*2.8), height/1.95, cactusImg, true);
+    cactii[i] = new Cactus(random(width*1.2, width*2.8), height/1.85, cactusImg, true);
   }
 
   clouds = new Cloud[5];
@@ -51,7 +53,7 @@ void setup()
   }
 
 
-  dino = new Dinosaur(width/2.3, height/5, dinosaurImg, true);
+  dino = new Dinosaur(width/2.3, height/1.95, dinosaurImg, true);
   dinosaw = new Dinosaur(width/15, height/2.9, dinosaurImg, true);
 
   cloudy = new Cloud(width/1.5, height/3.2, cloudImg, true);
@@ -99,12 +101,14 @@ void draw()
     background(255);
     dinosaurImg.resize(100, 100);
     dino.Draw();
+    dino.Update();
     line(0, height/1.6, width, height/1.6);
+    
   }
 
   if (screen == 1)
   {
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 7; i++)
     {
       cactii[i].Draw();
       cactii[i].Move();
@@ -115,13 +119,38 @@ void draw()
       clouds[i].Draw();
       cloudImg.resize(150, 150);
     }
+    
+    
+    if (screen == 2)
+    {
+      background(255);
+
+      fill(0);
+      textSize(40);
+      text("YOU LOSE!", width/2, height/2);
+
+      rect(buttonX, buttonY, buttonW, buttonH);
+
+      if (mousePressed && screen == 2 && mouseX>buttonX && mouseX<buttonW+buttonX && mouseY>buttonY && mouseY<buttonH+buttonY)
+      {
+        screen = 1;
+      }
+    }
   }
 }
 
-void keyPressed()
-{
-  if (screen == 1)
-  {
-    dino.Jump();
-  }
-}
+
+boolean isColliding(float dimgX, float dimgY, float dimgW, float dimgH, 
+    float otherX, float otherY, float otherW, float otherH)
+    {
+      float rightSideX = dimgX + dimgW;
+      float leftSideX = dimgX;
+      float topSideY = dimgY;
+      float bottomSideY = dimgY + dimgH;
+      
+      if ( (rightSideX > otherX && rightSideX < otherX + otherW) || (leftSideX < otherX + otherW && leftSideX > otherX) )
+      {
+        screen = 3;
+      }
+    }
+ 
