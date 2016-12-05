@@ -2,6 +2,8 @@ class Dinosaur
 {
   private float _x;
   private float _y;
+  private float _w;
+  private float _h;
   private PImage _dinosaurImg;
   private boolean _canJump;
 
@@ -10,6 +12,8 @@ class Dinosaur
     _x = x;
     _y = y;
     _dinosaurImg = dinosaurImg;
+    _w = _dinosaurImg.width;
+    _h = _dinosaurImg.height;
     _canJump = canJump;
   }
   
@@ -30,8 +34,6 @@ class Dinosaur
       _y = groundY;
       _canJump = true;
     }
-    
-    
   }
  
   
@@ -46,6 +48,5 @@ class Dinosaur
   public void Draw()
   {
       image(_dinosaurImg, _x, _y);
-      dinosaurImg.resize(100,100);
   }
 }

@@ -1,3 +1,9 @@
+import org.openkinect.freenect.*;
+import org.openkinect.freenect2.*;
+import org.openkinect.processing.*;
+import org.openkinect.tests.*;
+
+
 PImage dinosaurImg;
 PImage dinosaurImg2;
 PImage cloudImg;
@@ -20,6 +26,8 @@ Cloud[] clouds;
 
 Cactus[] cactii;
 
+Kinect kinect;
+
 
 
 void setup()
@@ -27,11 +35,13 @@ void setup()
   fullScreen();
   background(255);
   groundY = height/1.95;
-
+  
   dinosaurImg = loadImage("dinosaur.png");
+  dinosaurImg.resize(100, 100);
   dinosaurImg2 = loadImage("dinosaur.png");
-  dinosaurImg.resize(100,100);
+  dinosaurImg2.resize(300, 300);
   cloudImg = loadImage("cloud.png");
+  cloudImg.resize(400, 400);
   cactusImg = loadImage("cactus.png");
   dinosaurImg2.resize(width/13, width/13);
   cactusImg.resize(height/13, height/11);
@@ -52,7 +62,7 @@ void setup()
   }
 
   dino = new Dinosaur(width/2.3, height/1.95, dinosaurImg, true);
-  
+
   cloudy = new Cloud(width/1.5, height/3.2, cloudImg, true);
 
   buttonX = width/2.69;
@@ -81,11 +91,8 @@ void draw()
     textSize(75);
     text("Desert Dino", width/3, height/4);
 
-    dinosaurImg.resize(300, 300);
-    cloudImg.resize(400, 400);
+    image(dinosaurImg2, width/15, height/2.9);
 
-    image(dinosaurImg, width/15, height/2.9);
-    
     cloudy.Draw();
 
     if (mousePressed && screen == 0 && mouseX>buttonX && mouseX<buttonW+buttonX && mouseY>buttonY && mouseY<buttonH+buttonY)
@@ -97,7 +104,6 @@ void draw()
   if (screen == 1)
   {
     background(255);
-    dinosaurImg.resize(100,100);
     dino.Draw();
     dino.Update();
     line(0, height/1.6, width, height/1.6);
@@ -117,9 +123,8 @@ void draw()
       cactii[i].Draw();
       cactii[i].Move();
 
-      if (isColliding(dino._x, dino._y, dino._dinosaurImg.width, 
-        dino._dinosaurImg.height, cactii[i]._x, cactii[i]._y, 
-        cactii[i]._cactusImg.width, cactii[i]._cactusImg.height) )
+      if (isColliding(dino._x, dino._y, dino._w, dino._h, 
+        cactii[i]._x, cactii[i]._y, cactii[i]._w, cactii[i]._h) )
       {
         screen = 2;
       }
@@ -155,7 +160,7 @@ void draw()
   }
 }
 
-
+/*
 boolean isColliding(float dimgX, float dimgY, float dimgW, float dimgH, 
   float otherX, float otherY, float otherW, float otherH)
 {
@@ -171,8 +176,40 @@ boolean isColliding(float dimgX, float dimgY, float dimgW, float dimgH,
   {
     return true;
   } 
-  else
+  return false;
+}
+*/
+boolean isColliding(float boxX, float boxY, float boxW, float boxH,
+                            float otherX, float otherY, float otherW, float otherH)
+{
+  float rightSideX  = boxX + boxW;
+  float leftSideX   = boxX;
+  float topSideY    = boxY;
+  float bottomSideY = boxY + boxH;
+ 
+  /* Check to see if the plyr rectangle's sides are between
+      the left and right sides of our other rectangle */
+      //Are we colliding from the right side?
+  if ( ( rightSideX > otherX  && // AND        
+         rightSideX < otherX + otherW ) || // OR
+        (leftSideX  < otherX + otherW &&
+         leftSideX  > otherX) )
   {
-    return false;
+    println ("We're in the Same X");
+    /* If we are in between the left and right side of the other
+        rectangle, we need to check to see if we're also inside
+        its' top and bottom */
+        if ( ( topSideY <= otherY + otherH &&
+               topSideY >= otherY) ||
+             ( bottomSideY >= otherY &&
+               bottomSideY <= otherY + otherH) )
+        {
+          println("We're also in the same Y! WE'RE COLLIDING!!");
+          //If ALL if statements are true, we are colliding
+          return true;
+        }
+   
   }
+
+  return false; 
 }

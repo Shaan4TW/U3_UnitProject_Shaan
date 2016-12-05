@@ -2,6 +2,8 @@ class Cactus
 {
   private float _x;
   private float _y;
+  private float _w;
+  private float _h;
   private PImage _cactusImg;
   private boolean _isBlocking;
 
@@ -10,6 +12,8 @@ class Cactus
     _x = x;
     _y = y;
     _cactusImg = cactusImg;
+    _w = _cactusImg.width;
+    _h = _cactusImg.height;
     _isBlocking = isBlocking;
   }
 
