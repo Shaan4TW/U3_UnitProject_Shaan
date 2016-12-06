@@ -35,7 +35,7 @@ void setup()
   fullScreen();
   background(255);
   groundY = height/1.95;
-  
+
   dinosaurImg = loadImage("dinosaur.png");
   dinosaurImg.resize(100, 100);
   dinosaurImg2 = loadImage("dinosaur.png");
@@ -162,54 +162,53 @@ void draw()
 
 /*
 boolean isColliding(float dimgX, float dimgY, float dimgW, float dimgH, 
+ float otherX, float otherY, float otherW, float otherH)
+ {
+ float rightSideX = dimgX + dimgW;
+ float leftSideX = dimgX;
+ float topSideY = dimgY;
+ float bottomSideY = dimgY + dimgH;
+ 
+ if ( (rightSideX > otherX && rightSideX < otherX + otherW) || 
+ (leftSideX < otherX + otherW && leftSideX > otherX) || 
+ (topSideY <= otherY + otherH && topSideY >= otherY) || 
+ (bottomSideY >= otherY && bottomSideY <= otherY + otherH)  )
+ {
+ return true;
+ } 
+ return false;
+ }
+ */
+boolean isColliding(float boxX, float boxY, float boxW, float boxH, 
   float otherX, float otherY, float otherW, float otherH)
-{
-  float rightSideX = dimgX + dimgW;
-  float leftSideX = dimgX;
-  float topSideY = dimgY;
-  float bottomSideY = dimgY + dimgH;
-
-  if ( (rightSideX > otherX && rightSideX < otherX + otherW) || 
-    (leftSideX < otherX + otherW && leftSideX > otherX) || 
-    (topSideY <= otherY + otherH && topSideY >= otherY) || 
-    (bottomSideY >= otherY && bottomSideY <= otherY + otherH)  )
-  {
-    return true;
-  } 
-  return false;
-}
-*/
-boolean isColliding(float boxX, float boxY, float boxW, float boxH,
-                            float otherX, float otherY, float otherW, float otherH)
 {
   float rightSideX  = boxX + boxW;
   float leftSideX   = boxX;
   float topSideY    = boxY;
   float bottomSideY = boxY + boxH;
- 
+
   /* Check to see if the plyr rectangle's sides are between
-      the left and right sides of our other rectangle */
-      //Are we colliding from the right side?
+   the left and right sides of our other rectangle */
+  //Are we colliding from the right side?
   if ( ( rightSideX > otherX  && // AND        
-         rightSideX < otherX + otherW ) || // OR
-        (leftSideX  < otherX + otherW &&
-         leftSideX  > otherX) )
+    rightSideX < otherX + otherW ) || // OR
+    (leftSideX  < otherX + otherW &&
+    leftSideX  > otherX) )
   {
     println ("We're in the Same X");
     /* If we are in between the left and right side of the other
-        rectangle, we need to check to see if we're also inside
-        its' top and bottom */
-        if ( ( topSideY <= otherY + otherH &&
-               topSideY >= otherY) ||
-             ( bottomSideY >= otherY &&
-               bottomSideY <= otherY + otherH) )
-        {
-          println("We're also in the same Y! WE'RE COLLIDING!!");
-          //If ALL if statements are true, we are colliding
-          return true;
-        }
-   
+     rectangle, we need to check to see if we're also inside
+     its' top and bottom */
+    if ( ( topSideY <= otherY + otherH &&
+      topSideY >= otherY) ||
+      ( bottomSideY >= otherY &&
+      bottomSideY <= otherY + otherH) )
+    {
+      println("We're also in the same Y! WE'RE COLLIDING!!");
+      //If ALL if statements are true, we are colliding
+      return true;
+    }
   }
 
-  return false; 
+  return false;
 }
