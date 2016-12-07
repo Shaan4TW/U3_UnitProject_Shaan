@@ -1,20 +1,21 @@
 class AveragePointTracking
 {
-  import org.openkinect.freenect.*;
-  import org.openkinect.processing.*;
+  
 
 
   KinectTracker tracker;
   Kinect kinect;
 
 
-  void setup() {
+  void setup() 
+  {
     size(640, 520);
 
     tracker = new KinectTracker();
   }
 
-  void draw() {
+  void draw() 
+  {
     background(255);
 
     // Run the tracking analysis
@@ -24,5 +25,7 @@ class AveragePointTracking
 
     // Let's draw the raw location
     PVector v1 = tracker.getPos();
+    
+    if (dist(v1.x, v1.y
   }
 }

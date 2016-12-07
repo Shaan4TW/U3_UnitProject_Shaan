@@ -1,3 +1,10 @@
+/*
+Hello, this is game made by Shaan_4TW. It is an attempt to create the offline
+ Google Chrome game where a dinosaur is going through a desert. His goal is to avoid
+ cactii, and as time progresses, his score increases. Enjoy! 
+ */
+
+
 import org.openkinect.freenect.*;
 import org.openkinect.freenect2.*;
 import org.openkinect.processing.*;
@@ -15,7 +22,7 @@ float buttonY;
 float buttonW;
 float buttonH;
 float timeDelta;
-int gravity = 20;
+int gravity = 10;
 float groundY;
 int yForce;
 
@@ -27,7 +34,6 @@ Cloud[] clouds;
 Cactus[] cactii;
 
 Kinect kinect;
-
 
 
 void setup()
@@ -45,13 +51,13 @@ void setup()
   cactusImg = loadImage("cactus.png");
   dinosaurImg2.resize(width/13, width/13);
   cactusImg.resize(height/13, height/11);
-  cactii = new Cactus[7];
+  cactii = new Cactus[4];
 
   timeDelta = 1.0/frameRate;
 
-  for (int i = 0; i < 7; i++)
+  for (int i = 0; i < 4; i++)
   {
-    cactii[i] = new Cactus(random(width*1.2, width*2.8), height/1.85, cactusImg, true);
+    cactii[i] = new Cactus(random(width*1, width*3), height/1.85, cactusImg, true);
   }
 
   clouds = new Cloud[5];
@@ -78,6 +84,7 @@ void draw()
     background(255);
     fill(0, 255, 255);
     rect(buttonX, buttonY, buttonW, buttonH);
+    dinosaurImg2.resize(300,300);
 
     fill(0);
     textSize(50);
@@ -118,7 +125,7 @@ void draw()
     textSize(20);
     text(score, width/1.2, height/20);
 
-    for (int i = 0; i < 7; i++)
+    for (int i = 0; i < 4; i++)
     {
       cactii[i].Draw();
       cactii[i].Move();
@@ -135,50 +142,45 @@ void draw()
       clouds[i].Draw();
       cloudImg.resize(150, 150);
     }
+  }
+  if (screen == 2)
+  {
+    score = 0;
+    
+    for (int i = 0; i < 4; i++)
+  {
+    cactii[i] = new Cactus(random(width*1, width*3), height/1.85, cactusImg, true);
+  }
+  
+  
+    
+    
+    background(255);
 
-    if (screen == 2)
-    {
-      background(255);
+    fill(0);
+    rect(buttonX, buttonY, buttonW, buttonH);
 
-      fill(0);
-      rect(buttonX, buttonY, buttonW, buttonH);
+    fill(0, 255, 0);
+    textSize(30);
+    text("Back to Home Page", width/2.55, height/1.95);
 
-      fill(0, 255, 0);
-      textSize(30);
-      text("Back to Home Page", width/2.55, height/1.95);
+    fill(0, 255, 0);
+    textSize(17);
+    text("P.S. You suck", width/2.5, height/1.75);
 
-      fill(0, 255, 0);
-      textSize(17);
-      text("P.S. You suck", width/2.5, height/1.75);
-
-      if (mousePressed && screen == 2 && mouseX>buttonX && mouseX<buttonW+buttonX 
-        && mouseY>buttonY && mouseY<buttonH+buttonY)
-      {
-        screen = 0;
-      }
-    }
   }
 }
 
-/*
-boolean isColliding(float dimgX, float dimgY, float dimgW, float dimgH, 
- float otherX, float otherY, float otherW, float otherH)
- {
- float rightSideX = dimgX + dimgW;
- float leftSideX = dimgX;
- float topSideY = dimgY;
- float bottomSideY = dimgY + dimgH;
- 
- if ( (rightSideX > otherX && rightSideX < otherX + otherW) || 
- (leftSideX < otherX + otherW && leftSideX > otherX) || 
- (topSideY <= otherY + otherH && topSideY >= otherY) || 
- (bottomSideY >= otherY && bottomSideY <= otherY + otherH)  )
- {
- return true;
- } 
- return false;
- }
- */
+void mouseReleased()
+{
+  if (screen == 2 && mouseX>buttonX && mouseX<buttonW+buttonX 
+      && mouseY>buttonY && mouseY<buttonH+buttonY)
+    {
+      screen = 0;
+    }
+}
+
+
 boolean isColliding(float boxX, float boxY, float boxW, float boxH, 
   float otherX, float otherY, float otherW, float otherH)
 {
@@ -187,28 +189,19 @@ boolean isColliding(float boxX, float boxY, float boxW, float boxH,
   float topSideY    = boxY;
   float bottomSideY = boxY + boxH;
 
-  /* Check to see if the plyr rectangle's sides are between
-   the left and right sides of our other rectangle */
-  //Are we colliding from the right side?
-  if ( ( rightSideX > otherX  && // AND        
-    rightSideX < otherX + otherW ) || // OR
+
+  if ( ( rightSideX > otherX  &&         
+    rightSideX < otherX + otherW ) || 
     (leftSideX  < otherX + otherW &&
     leftSideX  > otherX) )
   {
-    println ("We're in the Same X");
-    /* If we are in between the left and right side of the other
-     rectangle, we need to check to see if we're also inside
-     its' top and bottom */
     if ( ( topSideY <= otherY + otherH &&
       topSideY >= otherY) ||
       ( bottomSideY >= otherY &&
       bottomSideY <= otherY + otherH) )
     {
-      println("We're also in the same Y! WE'RE COLLIDING!!");
-      //If ALL if statements are true, we are colliding
       return true;
     }
   }
-
   return false;
 }

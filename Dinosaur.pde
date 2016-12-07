@@ -16,14 +16,14 @@ class Dinosaur
     _h = _dinosaurImg.height;
     _canJump = canJump;
   }
-  
+
   public void Update()
   {
     if (_canJump && keyPressed && key == ' ' && screen == 1)
     {
       dino.Jump();
     }
-    
+
     if (_y < groundY)
     {
       _y += yForce * timeDelta;
@@ -35,11 +35,11 @@ class Dinosaur
       _canJump = true;
     }
   }
- 
-  
+
+
   public void Jump()
   {
-    yForce = -60;
+    yForce = -40;
     _y+= yForce * timeDelta;
     _canJump = false;
   }
@@ -47,6 +47,16 @@ class Dinosaur
 
   public void Draw()
   {
-      image(_dinosaurImg, _x, _y);
+    image(_dinosaurImg, _x, _y);
+  }
+
+  public float x()
+  {
+    return _x;
+  }
+
+  public float y()
+  {
+    return _y;
   }
 }

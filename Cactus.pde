@@ -27,11 +27,22 @@ class Cactus
 
   public void Move()
   {
-    _x = _x - 6;
+    _x = _x - 4;
 
     if (_x < width*-0.2)
     {
       _x = random(width*1.2, width*2.8);
     }
+  }
+
+
+  public float x()
+  {
+    return _x;
+  }
+
+  public float y()
+  {
+    return _y;
   }
 }
