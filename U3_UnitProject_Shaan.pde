@@ -1,8 +1,15 @@
 /*
-Hello, this is game made by Shaan_4TW. It is an attempt to create the offline
- Google Chrome game where a dinosaur is going through a desert. His goal is to avoid
- cactii, and as time progresses, his score increases. Enjoy! 
- */
+Hello, this is a game called Desert Dino. It is inspired by the offline
+Google Chrome game where a dinosaur is going through a desert. The goal 
+is to avoid cactii, and as time progresses, your score will increase. 
+You must use a kinect for this project to work. With the kinect, you 
+can either let it track your hand or body. Once it does, move
+(your hands) upwards.
+Enjoy! 
+
+- Made by Shaan_4TW
+
+*/
 
 
 import org.openkinect.freenect.*;
@@ -100,7 +107,6 @@ void draw()
   
     startY = (int) v1.y;
     
-
     fill(0);
     textSize(50);
     text("Play!", width/2.2, height/1.87);
@@ -138,10 +144,10 @@ void draw()
     
     
     fill(255,0,0);
-    ellipse(width/2, yPos, 50,50);
+    ellipse(width/2, yPos, 30, 30);
     
     fill(255,0,0);
-    ellipse(width/2, startY, 50,50);
+    ellipse(width/2, startY, 30, 30);
     
     fill(0, 0, 255);
     textSize(20);
