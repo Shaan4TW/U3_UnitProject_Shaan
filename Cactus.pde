@@ -28,6 +28,21 @@ class Cactus
   public void Move()
   {
     _x = _x - 4;
+    
+    if (score == 1000)
+    {
+      _x = _x - 6;
+    }
+    
+    if (score == 2000)
+    {
+      _x = _x - 8;
+    }
+    
+    if (score == 3000)
+    {
+      _x = _x - 10;
+    }
 
     if (_x < width*-0.2)
     {

@@ -19,7 +19,7 @@ class Dinosaur
 
   public void Update()
   {
-    if (_canJump && keyPressed && key == ' ' && screen == 1)
+    if (_canJump && yPos < startY - 50 && screen == 1)
     {
       dino.Jump();
     }
@@ -39,7 +39,7 @@ class Dinosaur
 
   public void Jump()
   {
-    yForce = -40;
+    yForce = -60;
     _y+= yForce * timeDelta;
     _canJump = false;
   }
