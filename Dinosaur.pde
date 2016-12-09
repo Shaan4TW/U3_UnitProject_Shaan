@@ -19,7 +19,7 @@ class Dinosaur
 
   public void Update()
   {
-    if (_canJump && yPos < startY - 50 && screen == 1)
+    if (_canJump && yPos < startY && screen == 1)
     {
       dino.Jump();
     }

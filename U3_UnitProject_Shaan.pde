@@ -102,7 +102,7 @@ void draw()
     fill(0, 255, 255);
     rect(buttonX, buttonY, buttonW, buttonH);
     dinosaurImg2.resize(300, 300);
-
+    
     PVector v1 = tracker.getPos();
   
     startY = (int) v1.y;
